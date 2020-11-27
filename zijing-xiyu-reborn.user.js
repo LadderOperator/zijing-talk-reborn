@@ -283,7 +283,9 @@ a.talk_tag, a.talk_torrent_link {
     border-radius: 8px;
     margin: 0px 3px!important;
 }
-
+img.insertedImg {
+  max-width:100%!important;
+}
 
 `;
 
@@ -301,6 +303,7 @@ function showImg(){
     if (e.className != "talk_link_short" && pattern.test(e.href)) {
       var img = document.createElement("img")
       img.src = e.href
+      img.className = "insertedImg"
       e.parentNode.insertBefore(img, e)
       e.parentNode.removeChild(e)
     }else{
