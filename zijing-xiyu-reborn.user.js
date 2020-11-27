@@ -277,12 +277,13 @@ div.talk_reply_history, div.talk_reply_to_talk{
   margin:5px 0px;
 }
 
-a.talk_tag {
+a.talk_tag, a.talk_torrent_link {
     border: purple solid 1px;
     padding: 2px;
     border-radius: 8px;
     margin: 0px 3px!important;
 }
+
 
 `;
 
@@ -290,23 +291,31 @@ document.body.appendChild(style);
 
 
 /*替换嵌入图片链接*/
-var link_list = document.querySelectorAll("a.talk_link")
 
-link_list.forEach(function(e){
-  const pattern = /(http(s?):)([/|.|\w|\s|\-|\%])*\.(?:jpg|gif|png)$/g;
+function showImg(){
+  var link_list = document.querySelectorAll("a.talk_link")
+
+  link_list.forEach(function(e){
+    const pattern = /(http(s?):)([/|.|\w|\s|\-|\%])*\.(?:jpg|gif|png)$/g;
+
+    if (e.className != "talk_link_short" && pattern.test(e.href)) {
+      var img = document.createElement("img")
+      img.src = e.href
+      e.parentNode.insertBefore(img, e)
+      e.parentNode.removeChild(e)
+    }else{
+      var short_link = document.createElement("a")
+      short_link.href = e.href
+      short_link.className = "talk_link_short"
+      short_link.text = "查看链接"
+      e.parentNode.insertBefore(short_link, e)
+      e.parentNode.removeChild(e)
+    }
+
+  })
   
-  if (pattern.test(e.href)) {
-    var img = document.createElement("img")
-    img.src = e.href
-    e.parentNode.insertBefore(img, e)
-    e.parentNode.removeChild(e)
-  }else{
-    var short_link = document.createElement("a")
-    short_link.href = e.href
-    short_link.className = "talk_link_short"
-    short_link.text = "查看链接"
-    e.parentNode.insertBefore(short_link, e)
-    e.parentNode.removeChild(e)
-  }
-  
-})
+}
+
+showImg();
+
+window.setInterval(showImg, 1000)
