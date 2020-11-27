@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name        重生之我是细语微博
 // @namespace   Violentmonkey Scripts
-// @match       http://zijingbt.njuftp.org/talk.html
+// @match       http://zijingbt.njuftp.org/talk.html*
 // @grant       none
-// @version     1.1
+// @version     1.2
 // @author      LadderOperator
 // @description 2020/11/27 下午7:01:24
 // ==/UserScript==
 
-
+/*插入CSS*/
 const style = document.createElement("style");
 style.innerHTML = 
 
@@ -51,6 +51,10 @@ div.talk_reply{
 td.talk_body_reply {
 	background:none;
 	border-bottom:#630360 dotted 1px;
+}
+
+table.talk_table_reply, tr.talk_body_reply {
+	background:none!important;
 }
 
 td.talk_body_reply > div.talk{
@@ -205,6 +209,10 @@ a.talk_link:before{
 	content:"🌐"
 }
 
+a.talk_link_short:before{
+	content:"🌐"
+}
+
 a.top_logout:before{
 	content:"💨"
 }
@@ -239,6 +247,7 @@ input {
 	padding: 5px;
 	border-radius:3px;
 	background-color: #630360;
+  box-shadow:0 0 3px 0px rgba(0,0,0,0.3);
 	transition:background-color ease-in-out 0.2s;
 }
 
@@ -248,6 +257,7 @@ input:hover {
 	padding: 5px;
 	border-radius:3px;
 	background-color: #8d0688;
+  box-shadow:0 0 3px 0px rgba(0,0,0,0.3);
 	transition:background-color ease-in-out 0.2s;
 }
 
@@ -263,6 +273,40 @@ table.talk_table_posted {
 	width:100%;
 }
 
+div.talk_reply_history, div.talk_reply_to_talk{
+  margin:5px 0px;
+}
+
+a.talk_tag {
+    border: purple solid 1px;
+    padding: 2px;
+    border-radius: 8px;
+    margin: 0px 3px!important;
+}
+
 `;
 
 document.body.appendChild(style);
+
+
+/*替换嵌入图片链接*/
+var link_list = document.querySelectorAll("a.talk_link")
+
+link_list.forEach(function(e){
+  const pattern = /(http(s?):)([/|.|\w|\s|\-|\%])*\.(?:jpg|gif|png)$/g;
+  
+  if (pattern.test(e.href)) {
+    var img = document.createElement("img")
+    img.src = e.href
+    e.parentNode.insertBefore(img, e)
+    e.parentNode.removeChild(e)
+  }else{
+    var short_link = document.createElement("a")
+    short_link.href = e.href
+    short_link.className = "talk_link_short"
+    short_link.text = "查看链接"
+    e.parentNode.insertBefore(short_link, e)
+    e.parentNode.removeChild(e)
+  }
+  
+})
