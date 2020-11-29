@@ -4,7 +4,7 @@
 // @match       http://zijingbt.njuftp.org/talk.html*
 // @match       http://zijingbt.njuftp.org/bet*.html*
 // @grant       none
-// @version     1.2
+// @version     1.3
 // @author      LadderOperator
 // @description 2020/11/27 下午7:01:24
 // ==/UserScript==
