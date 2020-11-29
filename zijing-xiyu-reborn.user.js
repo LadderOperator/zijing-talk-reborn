@@ -2,6 +2,7 @@
 // @name        重生之我是细语微博
 // @namespace   Violentmonkey Scripts
 // @match       http://zijingbt.njuftp.org/talk.html*
+// @match       http://zijingbt.njuftp.org/bet*.html*
 // @grant       none
 // @version     1.2
 // @author      LadderOperator
@@ -15,7 +16,7 @@ style.innerHTML =
 `
 /* ----- 重生之我是细语微博 ----- */	
 
-td.talk_body > div.talk:hover {
+td.talk_body > div.talk:hover{
 	margin:10px 0px 0px 0px;
 	background-color:rgba(255, 255, 255, 1.0);
 	padding:20px 30px;
@@ -25,7 +26,7 @@ td.talk_body > div.talk:hover {
 
 }
 
-td.talk_body > div.talk {
+td.talk_body > div.talk{
 	margin:10px 0px 0px 0px;
 	background-color:rgba(255, 255, 255, 0.8);
 	padding:20px 30px;
@@ -61,7 +62,7 @@ td.talk_body_reply > div.talk{
 	word-break:break-all;
 }
 
-td.main_table_torrent{
+td.main_table_torrent, table.bet_table_admin{
 	background:none;
 }
 
@@ -107,7 +108,7 @@ body {
 	margin:100px 0px 0px 0px;
 }
 
-td.talk_table_left_top {
+td.talk_table_left_top, table.bet_table, table.betoption {
     background:none;
 }
 
@@ -126,7 +127,7 @@ div.static_header span{
 }
 
 div.static_header:before{
-    content:"🔈："
+    content:"📢"
 }
 
 div.static_header {
@@ -189,7 +190,7 @@ td.talk_table_count #talk_left{
 	float:left;
 }
 
-a.talk_reply:before{
+a.talk_reply:before, td.bet p.bettitle > a:before{
 	content:"💬"
 }
 
@@ -202,15 +203,15 @@ a.talk_time:before{
 }
 
 a.talk_rt:before{
-	content:"📃"
+	content:"🚀"
 }
 
 a.talk_link:before{
-	content:"🌐"
+	content:"🔗"
 }
 
 a.talk_link_short:before{
-	content:"🌐"
+	content:"🔗"
 }
 
 a.top_logout:before{
@@ -238,10 +239,14 @@ span.talk_channel:before{
 }
 
 #tdTalkTrigger:before{
-	content:"💬"
+	content:"📻"
 }
 
-input {
+#tdBetTrigger:before{
+  content:"🌿"
+}
+
+input[type=button] {
 	color:white;
 	border:none;
 	padding: 5px;
@@ -251,7 +256,7 @@ input {
 	transition:background-color ease-in-out 0.2s;
 }
 
-input:hover {
+input[type=button]:hover {
 	color:white;
 	border:none;
 	padding: 5px;
@@ -285,6 +290,98 @@ a.talk_tag, a.talk_torrent_link {
 }
 img.insertedImg {
   max-width:100%!important;
+}
+
+#tdBetTrigger{
+    text-align: left;
+    padding: 5px 8px 5px 8px;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-color: transparent;
+    border-radius: 0.5em;
+    background-color: transparent;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+#tdBetTrigger:hover{
+    text-align: left;
+    padding: 5px 8px 5px 8px;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-color: transparent;
+    background-color: rgb(222,227,231);
+    border-radius: 0.5em;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+#tdBetTrigger a {
+    color: purple;
+    text-decoration: none;
+}
+
+#tdBetTrigger a:hover {
+    text-decoration: underline;
+}
+
+tr.bet_header {
+  border-radius:5px;
+}
+
+tr.betoptioned > td.betoption:before{
+  content:"🍺"
+}
+
+span.red:before{
+  content:"🚩"
+}
+
+span.blue:before{
+  content:"💰"
+}
+
+td.bet > p.bettitle{
+  font-size:16px;
+  color:purple;
+}
+
+tr.betheader > th.bettime:first-child{
+    border-radius: 3px 0px 0px 0px;
+}
+
+tr.betheader > td.bettime:last-child{
+    border-radius: 0px 3px 0px 0px;
+}
+
+td.bet:hover {
+	margin:10px 0px 0px 0px;
+	background-color:rgba(255, 255, 255, 1.0);
+	padding:20px 30px;
+	border-radius:0px 0px 3px 3px;
+	box-shadow:0 0 2px rgba(0,0,0,0.3);
+	transition:background-color ease-in-out 0.2s;
+
+}
+
+td.bet {
+	margin:10px 0px 0px 0px;
+	background-color:rgba(255, 255, 255, 0.8);
+	padding:20px 30px;
+	border-radius:0px 0px 3px 3px;
+	box-shadow:0 0 2px rgba(0,0,0,0.3);
+  transition:background-color ease-in-out 0.2s;
+
+}
+
+tr.betheader {
+  background-color: rgba(255,255,255,0.8);
+	box-shadow:0 0 2px rgba(0,0,0,0.3);
+  border: hidden!important;
 }
 
 `;
@@ -322,3 +419,18 @@ function showImg(){
 showImg();
 
 window.setInterval(showImg, 1000)
+
+/*增加菠菜*/
+
+var top_bar = document.querySelector("table.top_bar tr.top_bar")
+var bet = document.createElement("td")
+var bet_link = document.createElement("a")
+
+bet.className = "top_trigger"
+bet.id = "tdBetTrigger"
+bet_link.className = "top_bet"
+bet_link.href = "/bet.html"
+bet_link.text = "菠菜"
+
+bet.append(bet_link)
+top_bar.append(bet)
