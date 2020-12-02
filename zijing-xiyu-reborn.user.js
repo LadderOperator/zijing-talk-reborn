@@ -246,7 +246,7 @@ span.talk_channel:before{
   content:"🌿"
 }
 
-input[type=button] {
+input[type=button], input[type=submit] {
 	color:white;
 	border:none;
 	padding: 5px;
@@ -256,7 +256,7 @@ input[type=button] {
 	transition:background-color ease-in-out 0.2s;
 }
 
-input[type=button]:hover {
+input[type=button]:hover, input[type=submit]:hover {
 	color:white;
 	border:none;
 	padding: 5px;
